@@ -31,8 +31,16 @@ X = [ones(m, 1) X];
 %       
 
 
-temp = sigmoid(X*transpose(all_theta));
-[M,I] = max(temp, [], 2);
-p = I;
+% p = X * transpose(all_theta);
+% 
+% temp = zeros(size(X, 1), size(all_theta, 1));
+% for i = 1:size(all_theta, 1)
+%     temp(:, i) = X*transpose(all_theta(i,:));
+% end
+
+X*transpose(all_theta)
+
 % =========================================================================
+
+
 end

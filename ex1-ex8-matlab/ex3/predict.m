@@ -22,10 +22,14 @@ p = zeros(size(X, 1), 1);
 %
 
 
+% Add ones to the X data matrix
+X = [ones(size(X, 1), 1) X];
 
-
-
-
+hidden_layer = sigmoid(X*transpose(Theta1));
+hidden_layer = [ones(size(hidden_layer, 1), 1) hidden_layer];
+output_layer = sigmoid(hidden_layer*transpose(Theta2));
+[M,I] = max(output_layer, [], 2);
+p = I;
 
 
 

@@ -49,4 +49,21 @@ grad = zeros(size(theta));
 
 grad = grad(:);
 
+% no of training examples(no of rows in training set)
+m = size(X,1);
+
+% hypothesis : predictions
+h =  sigmoid(X * theta);
+
+% compute the cost function
+cost_first_term = -(1/m) *  ( sum( y.*log(h) + (1-y).*log(1-h)) ) ;
+cost_second_term = (lambda/(2*m)) * sum(theta(2:end) .^2);
+J = cost_first_term + cost_second_term;
+
+% compute the gradient
+grad_unregularized = (1/m) * (transpose(h-y) * X);
+temp = theta;
+temp(1) = 0;
+grad = grad_unregularized + ( (lambda/m) * transpose(temp));
+grad = grad';
 end
