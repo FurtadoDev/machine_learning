@@ -23,11 +23,24 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+test_values =  [0.01 0.03 0.1 0.3 1 3 10 30];
+min_error = Inf;
 
-
-
-
-
+for i=1:length(test_values) % iterate through possible C values
+    C_temp = test_values(1,i);
+    for j=1:length(test_values) % iterate through possible sigma values
+        sigma_temp = test_values(1,j);
+        model= svmTrain(X, y, C_temp, @(x1, x2) gaussianKernel(x1, x2, sigma_temp)); 
+        predictions = svmPredict(model, Xval);
+        % check for min and update if necessary here
+        error_temp = mean(double(predictions ~= yval));
+        if isinf(min_error) || error_temp < min_error
+            min_error = error_temp;        
+            C = C_temp;
+            sigma = sigma_temp;
+        end;
+    end;
+end;
 
 % =========================================================================
 
