@@ -21,7 +21,20 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
+for i=1:size(X, 1)
+    % x_temp = X(i, :);
+    min_dist_temp = Inf;
+    for j=1:size(centroids, 1)
+        % u_temp = centroids(j, :);
+        x_minus_u = X(i, :)' - centroids(j, :)';
+        norm_squared = x_minus_u'*x_minus_u;
+        if norm_squared < min_dist_temp
+            min_dist_temp = norm_squared;
+            idx(i,1) = j;
+        end;
+    end;
+    min_dist_temp = Inf;
+end;
 
 
 

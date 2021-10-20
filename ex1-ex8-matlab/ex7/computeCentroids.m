@@ -26,12 +26,19 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+sum_data_points = zeros(K, n);
+num_data_points_assigned = zeros(K, 1);
+% do the following for each training example
+for i=1:m
+    centroid_idx = idx(i, 1);
+    sum_data_points(centroid_idx, :) = sum_data_points(centroid_idx, :) + X(i, :);
+    num_data_points_assigned(centroid_idx, 1) = num_data_points_assigned(centroid_idx, 1) + 1;
+end;
 
 
-
-
-
-
+for i=1:K
+  centroids(i, :) = sum_data_points(i, :)./num_data_points_assigned(i, :);  
+end;
 
 % =============================================================
 
