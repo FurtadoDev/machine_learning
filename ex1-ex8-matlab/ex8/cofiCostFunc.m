@@ -42,18 +42,20 @@ Theta_grad = zeros(size(Theta));
 
 
 
+inner_term = R.*(((X*Theta') - Y).^2); % num_users x num_movies 
+J = (1/2)*sum(inner_term(:)); % cost
+X_grad = (R.*((X*Theta') - Y)) * Theta; % gradient for X
+Theta_grad = (R.*((X*Theta') - Y))' * X; % gradient for Theta
 
 
-
-
-
-
-
-
-
-
-
-
+% Regularization
+temp1 = Theta.^2;
+reg1 = (lambda/2)*sum(temp1(:));
+temp2 = X.^2;
+reg2 = (lambda/2)*sum(temp2(:));
+J = J + reg1 + reg2; % cost
+X_grad = X_grad + (lambda*X);
+Theta_grad = Theta_grad + (lambda*Theta);
 
 % =============================================================
 
